@@ -1,0 +1,319 @@
+# vsim top_tb -c -novopt -suppress 12110 -suppress 8386 -sv_lib ../../../Mentor_Graphics_QuestaSim_2021.2.1/installation/questasim/uvm-1.1d/linux/uvm_dpi -sv_seed random "+UVM_TESTNAME=axi_wr_rd_testcase" "+UVM_VERBOSITY=UVM_DEBUG" -do "add wave -position insertpoint top_tb/pif/*; run -all; quit" -l axi_wr_rd_testcase_0127_1534.log 
+# Start time: 15:34:28 on Jan 27,2025
+# ** Warning: (vsim-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+# //  Questa Sim
+# //  Version 2021.2_1 linux May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Refreshing /home/amit-asicraft/AXI4/testbench/sim/work.top_tb
+# ** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+# Refreshing /home/amit-asicraft/AXI4/testbench/sim/work.axi_intf
+# ** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+# Loading sv_std.std
+# Loading work.axi_intf
+# Refreshing /home/amit-asicraft/AXI4/testbench/sim/work.axi_tb_pkg
+# ** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+# Loading mtiUvm.uvm_pkg
+# Loading work.axi_tb_pkg
+# Loading mtiUvm.questa_uvm_pkg
+# Loading work.top_tb
+# Refreshing /home/amit-asicraft/AXI4/testbench/sim/work.axi_dut
+# ** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+# Loading work.axi_dut
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (4) for port 's_axi_wid'. The port definition is at: ../../RTL/axi_rtl.v(28).
+#    Time: 0 ns  Iteration: 0  Instance: /top_tb/DUT File: ../verif/top/top_tb.sv Line: 39
+# Loading ./../../../Mentor_Graphics_QuestaSim_2021.2.1/installation/questasim/uvm-1.1d/linux/uvm_dpi.so
+# Sv_Seed = 3144376283
+# add wave -position insertpoint top_tb/pif/*
+#  run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(254) @ 0: reporter [Questa UVM] Add Phase
+# UVM_INFO @ 0: reporter [RNTST] Running test axi_wr_rd_testcase...
+# UVM_WARNING @ 0: uvm_test_top.env.agent [UVM_DEPRECATED] build()/build_phase() has been called explicitly, outside of the phasing system. This usage of build is deprecated and may lead to unexpected behavior.
+# UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+# --------------------------------------------------------------
+# Name                       Type                    Size  Value
+# --------------------------------------------------------------
+# uvm_test_top               axi_wr_rd_testcase      -     @471 
+#   env                      axi_env                 -     @478 
+#     agent                  axi_agent               -     @485 
+#       cov                  axi_cov                 -     @632 
+#         analysis_imp       uvm_analysis_imp        -     @639 
+#       driver               axi_driver              -     @493 
+#         rsp_port           uvm_analysis_port       -     @508 
+#         seq_item_port      uvm_seq_item_pull_port  -     @500 
+#       mon                  axi_mon                 -     @625 
+#         ap_port            uvm_analysis_port       -     @652 
+#       seqr                 axi_seqr                -     @516 
+#         rsp_export         uvm_analysis_export     -     @523 
+#         seq_item_export    uvm_seq_item_pull_imp   -     @617 
+#         arbitration_queue  array                   0     -    
+#         lock_queue         array                   0     -    
+#         num_last_reqs      integral                32    'd1  
+#         num_last_rsps      integral                32    'd1  
+# --------------------------------------------------------------
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(339) @ 0: reporter [Questa UVM] End Of Elaboration
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'run'
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'pre_reset'
+# UVM_INFO ../verif/top/../env/axi_driver.sv(79) @ 0: uvm_test_top.env.agent.driver [Driver] task_driver
+# UVM_INFO ../verif/top/../env/axi_driver.sv(119) @ 0: uvm_test_top.env.agent.driver [Driver_tx] Write_address_phase
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 0: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.pre_reset' (id=172) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 0: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.reset' (id=184) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'post_reset'
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 0: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.post_reset' (id=196) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'pre_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 0: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.pre_configure' (id=208) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 0: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.configure' (id=220) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'post_configure'
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 0: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.post_configure' (id=232) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'pre_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 0: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.pre_main' (id=244) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'main'
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 0: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.main' (id=256) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'post_main'
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 0: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.post_main' (id=268) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'pre_shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 0: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.pre_shutdown' (id=280) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'shutdown'
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 0: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.shutdown' (id=292) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/seq/uvm_sequencer_base.svh(1384) @ 0: uvm_test_top.env.agent.seqr [PHASESEQ] No default phase sequence for phase 'post_shutdown'
+# UVM_INFO ../verif/top/../env/axi_mon.sv(49) @ 45: uvm_test_top.env.agent.mon [axi_mon] write_address
+# UVM_INFO ../verif/top/../env/axi_mon.sv(57) @ 45: uvm_test_top.env.agent.mon [Monitor_Write_addr_tx] 
+#  wr_rd=1, 
+#  awaddr=e4,
+#  burst_len=04,
+#  burst_type=1,
+#  burst_size=2,
+#  Awid=13
+# UVM_INFO ../verif/top/../env/axi_driver.sv(130) @ 55: uvm_test_top.env.agent.driver [Driver_tx] AWREADY asserted within timeout
+# UVM_INFO ../verif/top/../env/axi_driver.sv(140) @ 65: uvm_test_top.env.agent.driver [Driver_tx] 
+#  awaddr=00e4,
+#  burst_len=04,
+#  burst_type=1,
+#  burst_size=2,
+#  Awid=13
+# -----------------------------------------------------------------------------------------------
+# Name                           Type          Size  Value                                       
+# -----------------------------------------------------------------------------------------------
+# req                            axi_tx        -     @678                                        
+#   addr                         integral      8     'he4                                        
+#   dataQ                        da(integral)  5     -                                           
+#     [0]                        integral      32    'h2103f3d8                                  
+#     [1]                        integral      32    'h51ef4381                                  
+#     [2]                        integral      32    'he3ac59c1                                  
+#     [3]                        integral      32    'h4b2b163c                                  
+#     [4]                        integral      32    'h8e77fcd1                                  
+#   wstrbQ                       da(integral)  0     -                                           
+#   wr_rd                        integral      1     'h1                                         
+#   awid                         integral      8     'hd                                         
+#   wid                          integral      8     'hd                                         
+#   bid                          integral      8     'hd                                         
+#   arid                         integral      8     'he                                         
+#   rid                          integral      8     'he                                         
+#   burst_len                    integral      8     'h4                                         
+#   burst_size                   integral      3     'h2                                         
+#   burst_type                   burst_type_t  2     INCR                                        
+#   begin_time                   time          64    0                                           
+#   depth                        int           32    'd2                                         
+#   parent sequence (name)       string        16    wr_rd_sanity_seq                            
+#   parent sequence (full name)  string        44    uvm_test_top.env.agent.seqr.wr_rd_sanity_seq
+#   sequencer                    string        27    uvm_test_top.env.agent.seqr                 
+# -----------------------------------------------------------------------------------------------
+# UVM_INFO ../verif/top/../env/axi_driver.sv(160) @ 75: uvm_test_top.env.agent.driver [Driver_tx] WREADY asserted within timeout
+# UVM_INFO ../verif/top/../env/axi_driver.sv(164) @ 75: uvm_test_top.env.agent.driver [Driver_tx]  transfer=0 , vif.Wdata= 2103f3d8
+# UVM_INFO ../verif/top/../env/axi_driver.sv(160) @ 85: uvm_test_top.env.agent.driver [Driver_tx] WREADY asserted within timeout
+# UVM_INFO ../verif/top/../env/axi_driver.sv(164) @ 85: uvm_test_top.env.agent.driver [Driver_tx]  transfer=1 , vif.Wdata= 51ef4381
+# UVM_INFO ../verif/top/../env/axi_mon.sv(62) @ 85: uvm_test_top.env.agent.mon [axi_mon] write_data
+# UVM_INFO ../verif/top/../env/axi_mon.sv(65) @ 85: uvm_test_top.env.agent.mon [Monitor_write_data_tx]  vif.Wdata= '{553907160}, Wstrb = '{15}
+# UVM_INFO ../verif/top/../env/axi_driver.sv(160) @ 95: uvm_test_top.env.agent.driver [Driver_tx] WREADY asserted within timeout
+# UVM_INFO ../verif/top/../env/axi_driver.sv(164) @ 95: uvm_test_top.env.agent.driver [Driver_tx]  transfer=2 , vif.Wdata= e3ac59c1
+# UVM_INFO ../verif/top/../env/axi_mon.sv(62) @ 95: uvm_test_top.env.agent.mon [axi_mon] write_data
+# UVM_INFO ../verif/top/../env/axi_mon.sv(65) @ 95: uvm_test_top.env.agent.mon [Monitor_write_data_tx]  vif.Wdata= '{553907160, 1374634881}, Wstrb = '{15, 15}
+# UVM_INFO ../verif/top/../env/axi_driver.sv(160) @ 105: uvm_test_top.env.agent.driver [Driver_tx] WREADY asserted within timeout
+# UVM_INFO ../verif/top/../env/axi_driver.sv(164) @ 105: uvm_test_top.env.agent.driver [Driver_tx]  transfer=3 , vif.Wdata= 4b2b163c
+# UVM_INFO ../verif/top/../env/axi_mon.sv(62) @ 105: uvm_test_top.env.agent.mon [axi_mon] write_data
+# UVM_INFO ../verif/top/../env/axi_mon.sv(65) @ 105: uvm_test_top.env.agent.mon [Monitor_write_data_tx]  vif.Wdata= '{553907160, 1374634881, 3819723201}, Wstrb = '{15, 15, 15}
+# UVM_INFO ../verif/top/../env/axi_driver.sv(160) @ 115: uvm_test_top.env.agent.driver [Driver_tx] WREADY asserted within timeout
+# UVM_INFO ../verif/top/../env/axi_driver.sv(164) @ 115: uvm_test_top.env.agent.driver [Driver_tx]  transfer=4 , vif.Wdata= 8e77fcd1
+# UVM_INFO ../verif/top/../env/axi_mon.sv(62) @ 115: uvm_test_top.env.agent.mon [axi_mon] write_data
+# UVM_INFO ../verif/top/../env/axi_mon.sv(65) @ 115: uvm_test_top.env.agent.mon [Monitor_write_data_tx]  vif.Wdata= '{553907160, 1374634881, 3819723201, 1261114940}, Wstrb = '{15, 15, 15, 15}
+# UVM_INFO ../verif/top/../env/axi_driver.sv(178) @ 125: uvm_test_top.env.agent.driver [Driver_tx] Write_response_phase
+# UVM_INFO ../verif/top/../env/axi_mon.sv(70) @ 125: uvm_test_top.env.agent.mon [axi_mon] write_response
+# --------------------------------------------
+# Name          Type          Size  Value     
+# --------------------------------------------
+# tx            axi_tx        -     @706      
+#   addr        integral      8     'he4      
+#   dataQ       da(integral)  4     -         
+#     [0]       integral      32    'h2103f3d8
+#     [1]       integral      32    'h51ef4381
+#     [2]       integral      32    'he3ac59c1
+#     [3]       integral      32    'h4b2b163c
+#   wstrbQ      da(integral)  4     -         
+#     [0]       integral      8     'hf       
+#     [1]       integral      8     'hf       
+#     [2]       integral      8     'hf       
+#     [3]       integral      8     'hf       
+#   wr_rd       integral      1     'h1       
+#   awid        integral      8     'hd       
+#   wid         integral      8     'h0       
+#   bid         integral      8     'h0       
+#   arid        integral      8     'h0       
+#   rid         integral      8     'h0       
+#   burst_len   integral      8     'h4       
+#   burst_size  integral      3     'h2       
+#   burst_type  burst_type_t  2     INCR      
+# --------------------------------------------
+# UVM_INFO ../verif/top/../env/axi_mon.sv(76) @ 125: uvm_test_top.env.agent.mon [Monitor_Write_resp_tx] 
+#  BRESP=0
+# UVM_INFO ../verif/top/../env/axi_mon.sv(70) @ 135: uvm_test_top.env.agent.mon [axi_mon] write_response
+# --------------------------------------------
+# Name          Type          Size  Value     
+# --------------------------------------------
+# tx            axi_tx        -     @706      
+#   addr        integral      8     'he4      
+#   dataQ       da(integral)  4     -         
+#     [0]       integral      32    'h2103f3d8
+#     [1]       integral      32    'h51ef4381
+#     [2]       integral      32    'he3ac59c1
+#     [3]       integral      32    'h4b2b163c
+#   wstrbQ      da(integral)  4     -         
+#     [0]       integral      8     'hf       
+#     [1]       integral      8     'hf       
+#     [2]       integral      8     'hf       
+#     [3]       integral      8     'hf       
+#   wr_rd       integral      1     'h1       
+#   awid        integral      8     'hd       
+#   wid         integral      8     'h0       
+#   bid         integral      8     'h0       
+#   arid        integral      8     'h0       
+#   rid         integral      8     'h0       
+#   burst_len   integral      8     'h4       
+#   burst_size  integral      3     'h2       
+#   burst_type  burst_type_t  2     INCR      
+# --------------------------------------------
+# UVM_INFO ../verif/top/../env/axi_mon.sv(76) @ 135: uvm_test_top.env.agent.mon [Monitor_Write_resp_tx] 
+#  BRESP=0
+# UVM_INFO ../verif/top/../env/axi_driver.sv(185) @ 145: uvm_test_top.env.agent.driver [Driver_tx] BVALID=0, BREADY=1
+# UVM_INFO ../verif/top/../env/axi_driver.sv(79) @ 145: uvm_test_top.env.agent.driver [Driver] task_driver
+# UVM_INFO ../verif/top/../env/axi_driver.sv(193) @ 145: uvm_test_top.env.agent.driver [Driver_tx] read_address_phase
+# UVM_INFO ../verif/top/../env/axi_driver.sv(203) @ 155: uvm_test_top.env.agent.driver [Driver_tx] ARREADY asserted within timeout
+# UVM_INFO ../verif/top/../env/axi_driver.sv(213) @ 165: uvm_test_top.env.agent.driver [Driver_tx] 
+#  araddr=00e4,
+#  burst_len=04,
+#  burst_type=1,
+#  burst_size=2,
+#  Arid=3
+# UVM_INFO ../verif/top/../env/axi_driver.sv(220) @ 165: uvm_test_top.env.agent.driver [Driver_tx] read_data_phase
+# UVM_INFO ../verif/top/../env/axi_mon.sv(95) @ 175: uvm_test_top.env.agent.mon [axi_mon] read_data/resp
+# UVM_INFO ../verif/top/../env/axi_mon.sv(97) @ 175: uvm_test_top.env.agent.mon [MONITOR_tx]  vif.Rdata= 553907160
+# UVM_INFO ../verif/top/../env/axi_mon.sv(95) @ 185: uvm_test_top.env.agent.mon [axi_mon] read_data/resp
+# UVM_INFO ../verif/top/../env/axi_mon.sv(97) @ 185: uvm_test_top.env.agent.mon [MONITOR_tx]  vif.Rdata= 1374634881
+# UVM_INFO ../verif/top/../env/axi_mon.sv(95) @ 195: uvm_test_top.env.agent.mon [axi_mon] read_data/resp
+# UVM_INFO ../verif/top/../env/axi_mon.sv(97) @ 195: uvm_test_top.env.agent.mon [MONITOR_tx]  vif.Rdata= 3819723201
+# UVM_INFO ../verif/top/../env/axi_mon.sv(95) @ 205: uvm_test_top.env.agent.mon [axi_mon] read_data/resp
+# UVM_INFO ../verif/top/../env/axi_mon.sv(97) @ 205: uvm_test_top.env.agent.mon [MONITOR_tx]  vif.Rdata= 1261114940
+# UVM_INFO ../verif/top/../env/axi_mon.sv(95) @ 215: uvm_test_top.env.agent.mon [axi_mon] read_data/resp
+# UVM_INFO ../verif/top/../env/axi_mon.sv(97) @ 215: uvm_test_top.env.agent.mon [MONITOR_tx]  vif.Rdata= 2390228177
+# --------------------------------------------
+# Name          Type          Size  Value     
+# --------------------------------------------
+# tx            axi_tx        -     @706      
+#   addr        integral      8     'he4      
+#   dataQ       da(integral)  9     -         
+#     [0]       integral      32    'h2103f3d8
+#     [1]       integral      32    'h51ef4381
+#     [2]       integral      32    'he3ac59c1
+#     [3]       integral      32    'h4b2b163c
+#     [4]       integral      32    'h2103f3d8
+#     [5]       integral      32    'h51ef4381
+#     [6]       integral      32    'he3ac59c1
+#     [7]       integral      32    'h4b2b163c
+#     [8]       integral      32    'h8e77fcd1
+#   wstrbQ      da(integral)  4     -         
+#     [0]       integral      8     'hf       
+#     [1]       integral      8     'hf       
+#     [2]       integral      8     'hf       
+#     [3]       integral      8     'hf       
+#   wr_rd       integral      1     'h1       
+#   awid        integral      8     'hd       
+#   wid         integral      8     'h0       
+#   bid         integral      8     'h0       
+#   arid        integral      8     'h0       
+#   rid         integral      8     'h0       
+#   burst_len   integral      8     'h4       
+#   burst_size  integral      3     'h2       
+#   burst_type  burst_type_t  2     INCR      
+# --------------------------------------------
+# UVM_INFO ../verif/top/../env/axi_mon.sv(102) @ 215: uvm_test_top.env.agent.mon [Monitor_Read_Data_tx] 
+#  RLAST=1, 
+#  RRESP=0
+# UVM_INFO ../verif/top/../env/axi_driver.sv(231) @ 245: uvm_test_top.env.agent.driver [Driver_tx] RVALID=0, RREADY=1
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1243) @ 445: reporter [TEST_DONE] All end-of-test objections have been dropped. Calling stop tasks
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 445: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1199) @ 445: reporter [PH/TRC/EXE/ALLDROP] Phase 'common.run' (id=93) PHASE EXIT ALL_DROPPED
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 445: reporter [PH_READY_TO_END] Phase 'common.run' (id=93) PHASE READY TO END
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_phase.svh(1215) @ 445: reporter [PH_READY_TO_END] Phase 'uvm.uvm_sched.post_shutdown' (id=304) PHASE READY TO END
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :   82
+# UVM_WARNING :    1
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [Driver]     2
+# [Driver_tx]    20
+# [MONITOR_tx]     5
+# [Monitor_Read_Data_tx]     1
+# [Monitor_Write_addr_tx]     1
+# [Monitor_Write_resp_tx]     2
+# [Monitor_write_data_tx]     4
+# [PH/TRC/EXE/ALLDROP]     1
+# [PHASESEQ]    13
+# [PH_READY_TO_END]    13
+# [Questa UVM]     4
+# [RNTST]     1
+# [TEST_DONE]     2
+# [UVMTOP]     1
+# [UVM_DEPRECATED]     1
+# [axi_mon]    12
+# ** Note: $finish    : /home/amit-asicraft/Mentor_Graphics_QuestaSim_2021.2.1/installation/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 445 ns  Iteration: 53  Instance: /top_tb
+# End time: 15:34:34 on Jan 27,2025, Elapsed time: 0:00:06
+# Errors: 0, Warnings: 2

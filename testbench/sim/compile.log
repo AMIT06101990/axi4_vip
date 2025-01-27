@@ -1,0 +1,14 @@
+QuestaSim vlog 2021.2_1 Compiler 2021.05 May 15 2021
+Start time: 15:34:23 on Jan 27,2025
+vlog ../../RTL/axi_rtl.v "+incdir+../../../Mentor_Graphics_QuestaSim_2021.2.1/installation/questasim/verilog_src/uvm-1.1d/src" "+incdir+../verif/top" "+incdir+../verif/test" "+incdir+../verif/env" ../verif/top/top_tb.sv 
+-- Compiling module axi_dut
+-- Compiling package axi_tb_pkg
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Compiling interface axi_intf
+-- Compiling module top_tb
+-- Importing package axi_tb_pkg
+
+Top level modules:
+	top_tb
+End time: 15:34:24 on Jan 27,2025, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0
