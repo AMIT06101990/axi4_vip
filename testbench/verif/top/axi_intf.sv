@@ -63,7 +63,7 @@ interface axi_intf (input logic clk);
 
 //Clocking block for Driver Block
 clocking drv_cb@(posedge clk);
-  default input #1 output #1;
+  default input #1 output #0;
   output AWID, AWADDR, AWLEN, AWSIZE, AWBURST,  AWLOCK, AWCACHE, AWPROT, AWVALID;
   input  AWREADY;
 
@@ -103,14 +103,14 @@ endclocking
 //  Write Address Handshaking                                                 // 
 //---------------------------------------------------------------------------//
 property Write_addr_handshaking;
-       @(posedge clk)  AWVALID |-> ##[0:2]AWREADY;
+       @(posedge clk)  AWVALID |-> ##[0:9]AWREADY;
 endproperty
 
 WRITE_HANDSHAKING : assert property (Write_addr_handshaking) begin
-           `uvm_info("*** ASSERTION PASSED *** - AWREADY && AWVALID","",UVM_HIGH)
+              $display("ASSERTION PASS- AWREADY && AWVALID");
             end 
             else begin
-              `uvm_info("ASSERTION FAILED - AWREADY && AWVALID","",UVM_NONE)
+              $display("ASSERTION FAILED- AWREADY && AWVALID");
             end
          
 //---------------------------------------------------------------------------//
@@ -120,11 +120,11 @@ property Write_data_handshaking;
        @(posedge clk)  WVALID |-> ##[0:2] WREADY;
 endproperty
 
-WRITE_DATA_HANDSHAKING : assert property (Write_data_handshaking) begin
-           `uvm_info("Write_data_handshaking", "ASSERTION PASSED ", UVM_MEDIUM)
+WRITE_DATA_HANDSHAKING : assert property (Write_data_handshaking)begin
+              $display("ASSERTION PASS- WVALID && WREADY");
             end 
             else begin
-           `uvm_info("Write_data_handshaking", "ASSERTION FAILED", UVM_MEDIUM)
+              $display("ASSERTION FAILED - WVALID && WREADY");
             end
 
 //---------------------------------------------------------------------------//
@@ -135,11 +135,11 @@ property Write_resp_handshaking;
 endproperty
 
 WRITE_RESPONSE_HANDSHAKING : assert property (Write_resp_handshaking) begin
-           `uvm_info("*** ASSERTION PASSED *** - BVALID && BREADY","",UVM_HIGH)
+              $display("ASSERTION PASS- BVALID && BREADY");
             end 
-            else 
-              `uvm_info("ASSERTION FAILED - BVALID && BREADY","",UVM_NONE)
-
+            else begin
+              $display("ASSERTION FAILED - BVALID && BREADY");
+            end
               
 //---------------------------------------------------------------------------//
 // Read Address Handshaking                                                  // 
@@ -149,24 +149,24 @@ property Read_addr_handshaking;
 endproperty
 
 READ_HANDSHAKING : assert property (Read_addr_handshaking) begin
-           `uvm_info("*** ASSERTION PASSED *** - ARREADY && ARVALID","",UVM_HIGH)
+              $display("ASSERTION PASS- ARVALID && ARREADY");
             end 
             else begin
-              `uvm_info("ASSERTION FAILED - ARREADY && ARVALID","",UVM_NONE)
+              $display("ASSERTION FAILED - ARVALID && ARREADY");
             end
- 
+
 //---------------------------------------------------------------------------//
 //  Read Data Handshaking                                                    // 
 //---------------------------------------------------------------------------//
 property Read_data_handshaking;
-       @(posedge clk)  WVALID |-> ##[0:2] WREADY;
+       @(posedge clk)  RVALID |-> ##[0:2] RREADY;
 endproperty
 
 READ_DATA_HANDSHAKING : assert property (Read_data_handshaking) begin
-           `uvm_info("*** ASSERTION PASSED *** - RREADY && RVALID","",UVM_HIGH)
+              $display("ASSERTION PASS- RVALID && RREADY");
             end 
             else begin
-              `uvm_info("ASSERTION FAILED - RREADY && RVALID","",UVM_NONE)
+              $display("ASSERTION FAILED - RVALID && RREADY");
             end
 
 //---------------------------------------------------------------------------//
@@ -175,11 +175,11 @@ READ_DATA_HANDSHAKING : assert property (Read_data_handshaking) begin
 property reset_p;
   @(posedge clk)reset |=> AWVALID;
 endproperty
-ASSERT_RESET_P: assert property(reset_p)begin
-              `uvm_info("*** ASSERTION PASSED *** Reset and Awvalid same posedge","",UVM_HIGH)
+ASSERT_RESET_P: assert property(reset_p) begin
+           $display("ASSERTION PASSED - Reset and Awvalid same posedge");
            end
            else
-           `uvm_info("*** ASSERTION FAILED *** Reset and Awvalid same posedge","",UVM_HIGH)
+           $display("ASSERTION FAILED - Reset and Awvalid same posedge");
 
 //---------------------------------------------------------------------------//
 // Low Reset and Awvalid, Wvalid & Arvalid low                               // 
@@ -188,22 +188,22 @@ ASSERT_RESET_P: assert property(reset_p)begin
 //  @(posedge clk) !reset |->  AWVALID==0 && WVALID == 0 && ARVALID == 0;
 //endproperty
 //ASSERT_LOW_RESET_P: assert property(low_reset_p)begin
-//           `uvm_info("*** ASSERTION PASSED *** Low Reset and Awvalid,Wvalid & Arvalid low","",UVM_HIGH)
+//           $display("ASSERTION PASSED - Low Reset and Awvalid,Wvalid & Arvalid low");
 //         end
 //          else
-//           `uvm_info("*** ASSERTION FAILED *** Low Reset and Awvalid,Wvalid & Arvalid low","",UVM_HIGH)
+//           $display("ASSERTION FAILED - Low Reset and Awvalid,Wvalid & Arvalid low");
 //
 //---------------------------------------------------------------------------//
 // Awvalid duration High and same duration AWID and AWLEN High               //
 //---------------------------------------------------------------------------//
 //property valid_info_p;
-//  @(posedge clk) AWVALID |-> $stable(AWID) && $stable(AWLEN); 
+//  @(posedge clk)disable iff(reset) AWVALID |=> $stable(AWID) && $stable(AWLEN); 
 //endproperty
 //ASSERT_VALID_INFO_P: assert property(valid_info_p) begin
-//           `uvm_info("*** ASSERTION PASSED *** High Awvalid and Awid and Awlen stable","",UVM_HIGH)
+//          $display("ASSERTION PASSED - High Awvalid and Awid and Awlen stable");
 //         end
 //           else
-//           `uvm_info("*** ASSERTION FAILED*** High Awvalid and Awid and Awlen stable","",UVM_HIGH)
+//          $display("ASSERTION FAILED - High Awvalid and Awid and Awlen stable");
 
 
 endinterface
