@@ -12,7 +12,7 @@
 # Variables
 # Paths to source files and tools
 RTL         = ../../RTL/axi_rtl.v
-QUESTA_PATH = ../../../Mentor_Graphics_QuestaSim_2021.2.1/installation/questasim
+QUESTA_PATH = ../../../../Mentor_Graphics_QuestaSim_2021.2.1/installation/questasim
 UVM_SRC     = $(QUESTA_PATH)/verilog_src/uvm-1.1d/src
 UVM_LIB     = $(QUESTA_PATH)/uvm-1.1d/linux
 
