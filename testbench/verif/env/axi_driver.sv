@@ -210,6 +210,7 @@ task read_address_phase(axi_tx tx);
   vif.drv_cb.ARSIZE <= 0; 
   vif.drv_cb.ARBURST <= 0;
   vif.drv_cb.ARID <= 0;
+  `uvm_info("Driver_Read_addr_tx", $sformatf("\n ARVALID=%0d, ARREADY=%0d",vif.ARVALID, vif.ARREADY), UVM_MEDIUM)
   `uvm_info("Driver_tx",$sformatf("\n araddr=%h,\n burst_len=%h,\n burst_type=%h,\n burst_size=%h,\n Arid=%0d", vif.ARADDR, vif.ARLEN, vif.ARBURST, vif.ARSIZE, vif.ARID), UVM_MEDIUM)
 endtask : read_address_phase
 

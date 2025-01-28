@@ -1,14 +1,16 @@
-//---------------------------------------------------------------------------//
-// Title       :
-// Class Name  :
-// Description :                                                             //
-// 
-//
-// //
-// Author      : [ASICraft technologies Pvt Ltd.]                            //
-// Created On  : [Date]                                                      //
-// Last Updated: [Date]                                                      //
-//---------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------//
+// Title       : AXI Monitor Class                                               //
+// Class Name  : axi_mon                                                         //
+// Description :                                                                 //
+//              - AXI Monitor observes AXI transactions on the virtual interface //
+//                and convert signal to transaction level                        //
+//              - sends transaction  using the analysis port to Scoreboard       //
+//                and Coverage component.                                        //
+//                                                                               //
+// Author      : [ASICraft technologies Pvt Ltd.]                                //
+// Created On  : [Date]                                                          //
+// Last Updated: [Date]                                                          //
+//-------------------------------------------------------------------------------//
 
 
 
@@ -77,6 +79,7 @@ task run_phase(uvm_phase phase);
 		end
 
     //Read_address_phase
+    `uvm_info("Monitor_Read_addr_tx",$sformatf("\n ARVALID=%0d, ARREADY=%0d",vif.mon_cb.ARVALID, vif.mon_cb.ARREADY), UVM_MEDIUM)
 		if(vif.mon_cb.ARVALID && vif.mon_cb.ARREADY)begin
 			`uvm_info("axi_mon", "Read_address", UVM_MEDIUM)
 		  tx = axi_tx::type_id::create("tx");
@@ -86,8 +89,8 @@ task run_phase(uvm_phase phase);
 			tx.burst_len = vif.mon_cb.ARLEN;
 			tx.burst_size = vif.mon_cb.ARSIZE;
 			tx.burst_type = vif.mon_cb.ARBURST;
-    `uvm_info("Monitor_Read_addr_tx",$sformatf("\n ARVALID=%0d, ARREADY=%0d",vif.mon_cb.ARVALID, vif.mon_cb.ARREADY), UVM_MEDIUM)
-    `uvm_info("Monitor_Read_addr_tx",$sformatf("\n wr_rd=%0d, \n awaddr=%h,\n burst_len=%h,\n burst_type=%h,\n burst_size=%h,\n Awid=%0d",tx.wr_rd, tx.addr, tx.burst_len, tx.burst_type, tx.burst_size, tx.awid), UVM_MEDIUM)
+    `uvm_info("Monitor_Read_addr_tx",$sformatf("\n #### ARVALID=%0d, ARREADY=%0d",vif.mon_cb.ARVALID, vif.mon_cb.ARREADY), UVM_MEDIUM)
+    `uvm_info("Monitor_Read_addr_tx",$sformatf("\n #### wr_rd=%0d, \n awaddr=%h,\n burst_len=%h,\n burst_type=%h,\n burst_size=%h,\n Arid=%0d",tx.wr_rd, tx.addr, tx.burst_len, tx.burst_type, tx.burst_size, tx.arid), UVM_MEDIUM)
     end
 
     //read_data/resp_phase
