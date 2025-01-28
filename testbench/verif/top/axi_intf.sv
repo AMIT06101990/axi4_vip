@@ -99,103 +99,103 @@ clocking mon_cb@(posedge clk);
   input  RREADY;
 endclocking
 
-////---------------------------------------------------------------------------//
-////  Write Address Handshaking                                                 // 
-////---------------------------------------------------------------------------//
-//property Write_addr_handshaking;
-//       @(posedge clk)  AWVALID |-> ##[0:2]AWREADY;
+//---------------------------------------------------------------------------//
+//  Write Address Handshaking                                                 // 
+//---------------------------------------------------------------------------//
+property Write_addr_handshaking;
+       @(posedge clk)  AWVALID |-> ##[0:2]AWREADY;
+endproperty
+
+WRITE_HANDSHAKING : assert property (Write_addr_handshaking) begin
+           `uvm_info("*** ASSERTION PASSED *** - AWREADY && AWVALID","",UVM_HIGH)
+            end 
+            else begin
+              `uvm_info("ASSERTION FAILED - AWREADY && AWVALID","",UVM_NONE)
+            end
+         
+//---------------------------------------------------------------------------//
+//  Write Data Handshaking                                                   // 
+//---------------------------------------------------------------------------//
+property Write_data_handshaking;
+       @(posedge clk)  WVALID |-> ##[0:2] WREADY;
+endproperty
+
+WRITE_DATA_HANDSHAKING : assert property (Write_data_handshaking) begin
+           `uvm_info("Write_data_handshaking", "ASSERTION PASSED ", UVM_MEDIUM)
+            end 
+            else begin
+           `uvm_info("Write_data_handshaking", "ASSERTION FAILED", UVM_MEDIUM)
+            end
+
+//---------------------------------------------------------------------------//
+//  Write Response Handshaking                                               // 
+//---------------------------------------------------------------------------//
+property Write_resp_handshaking;
+       @(posedge clk)  BVALID |-> ##[0:2] BREADY;
+endproperty
+
+WRITE_RESPONSE_HANDSHAKING : assert property (Write_resp_handshaking) begin
+           `uvm_info("*** ASSERTION PASSED *** - BVALID && BREADY","",UVM_HIGH)
+            end 
+            else 
+              `uvm_info("ASSERTION FAILED - BVALID && BREADY","",UVM_NONE)
+
+              
+//---------------------------------------------------------------------------//
+// Read Address Handshaking                                                  // 
+//---------------------------------------------------------------------------//
+property Read_addr_handshaking;
+       @(posedge clk)  ARVALID |-> ##[0:2]ARREADY;
+endproperty
+
+READ_HANDSHAKING : assert property (Read_addr_handshaking) begin
+           `uvm_info("*** ASSERTION PASSED *** - ARREADY && ARVALID","",UVM_HIGH)
+            end 
+            else begin
+              `uvm_info("ASSERTION FAILED - ARREADY && ARVALID","",UVM_NONE)
+            end
+ 
+//---------------------------------------------------------------------------//
+//  Read Data Handshaking                                                    // 
+//---------------------------------------------------------------------------//
+property Read_data_handshaking;
+       @(posedge clk)  WVALID |-> ##[0:2] WREADY;
+endproperty
+
+READ_DATA_HANDSHAKING : assert property (Read_data_handshaking) begin
+           `uvm_info("*** ASSERTION PASSED *** - RREADY && RVALID","",UVM_HIGH)
+            end 
+            else begin
+              `uvm_info("ASSERTION FAILED - RREADY && RVALID","",UVM_NONE)
+            end
+
+//---------------------------------------------------------------------------//
+//  Reset and Awvalid on same posedge                                        // 
+//---------------------------------------------------------------------------//
+property reset_p;
+  @(posedge clk)reset |=> AWVALID;
+endproperty
+ASSERT_RESET_P: assert property(reset_p)begin
+              `uvm_info("*** ASSERTION PASSED *** Reset and Awvalid same posedge","",UVM_HIGH)
+           end
+           else
+           `uvm_info("*** ASSERTION FAILED *** Reset and Awvalid same posedge","",UVM_HIGH)
+
+//---------------------------------------------------------------------------//
+// Low Reset and Awvalid, Wvalid & Arvalid low                               // 
+//---------------------------------------------------------------------------//
+//property low_reset_p;
+//  @(posedge clk) !reset |->  AWVALID==0 && WVALID == 0 && ARVALID == 0;
 //endproperty
+//ASSERT_LOW_RESET_P: assert property(low_reset_p)begin
+//           `uvm_info("*** ASSERTION PASSED *** Low Reset and Awvalid,Wvalid & Arvalid low","",UVM_HIGH)
+//         end
+//          else
+//           `uvm_info("*** ASSERTION FAILED *** Low Reset and Awvalid,Wvalid & Arvalid low","",UVM_HIGH)
 //
-//WRITE_HANDSHAKING : assert property (Write_addr_handshaking) begin
-//           `uvm_info("*** ASSERTION PASSED *** - AWREADY && AWVALID","",UVM_HIGH)
-//            end 
-//            else begin
-//              `uvm_info("ASSERTION FAILED - AWREADY && AWVALID","",UVM_NONE)
-//            end
-//         
-////---------------------------------------------------------------------------//
-////  Write Data Handshaking                                                   // 
-////---------------------------------------------------------------------------//
-//property Write_data_handshaking;
-//       @(posedge clk)  WVALID |-> ##[0:2] WREADY;
-//endproperty
-//
-//WRITE_DATA_HANDSHAKING : assert property (Write_data_handshaking) begin
-//           `uvm_info("Write_data_handshaking", "ASSERTION PASSED ", UVM_MEDIUM)
-//            end 
-//            else begin
-//           `uvm_info("Write_data_handshaking", "ASSERTION FAILED", UVM_MEDIUM)
-//            end
-//
-////---------------------------------------------------------------------------//
-////  Write Response Handshaking                                               // 
-////---------------------------------------------------------------------------//
-//property Write_resp_handshaking;
-//       @(posedge clk)  BVALID |-> ##[0:2] BREADY;
-//endproperty
-//
-//WRITE_RESPONSE_HANDSHAKING : assert property (Write_resp_handshaking) begin
-//           `uvm_info("*** ASSERTION PASSED *** - BVALID && BREADY","",UVM_HIGH)
-//            end 
-//            else 
-//              `uvm_info("ASSERTION FAILED - BVALID && BREADY","",UVM_NONE)
-//
-//              
-////---------------------------------------------------------------------------//
-//// Read Address Handshaking                                                  // 
-////---------------------------------------------------------------------------//
-//property Read_addr_handshaking;
-//       @(posedge clk)  ARVALID |-> ##[0:2]ARREADY;
-//endproperty
-//
-//READ_HANDSHAKING : assert property (Read_addr_handshaking) begin
-//           `uvm_info("*** ASSERTION PASSED *** - ARREADY && ARVALID","",UVM_HIGH)
-//            end 
-//            else begin
-//              `uvm_info("ASSERTION FAILED - ARREADY && ARVALID","",UVM_NONE)
-//            end
-// 
-////---------------------------------------------------------------------------//
-////  Read Data Handshaking                                                    // 
-////---------------------------------------------------------------------------//
-//property Read_data_handshaking;
-//       @(posedge clk)  WVALID |-> ##[0:2] WREADY;
-//endproperty
-//
-//READ_DATA_HANDSHAKING : assert property (Read_data_handshaking) begin
-//           `uvm_info("*** ASSERTION PASSED *** - RREADY && RVALID","",UVM_HIGH)
-//            end 
-//            else begin
-//              `uvm_info("ASSERTION FAILED - RREADY && RVALID","",UVM_NONE)
-//            end
-//
-////---------------------------------------------------------------------------//
-////  Reset and Awvalid on same posedge                                        // 
-////---------------------------------------------------------------------------//
-//property reset_p;
-//  @(posedge clk)reset |=> AWVALID;
-//endproperty
-//ASSERT_RESET_P: assert property(reset_p)begin
-//              `uvm_info("*** ASSERTION PASSED *** Reset and Awvalid same posedge","",UVM_HIGH)
-//           end
-//           else
-//           `uvm_info("*** ASSERTION FAILED *** Reset and Awvalid same posedge","",UVM_HIGH)
-//
-////---------------------------------------------------------------------------//
-//// Low Reset and Awvalid, Wvalid & Arvalid low                               // 
-////---------------------------------------------------------------------------//
-////property low_reset_p;
-////  @(posedge clk) !reset |->  AWVALID==0 && WVALID == 0 && ARVALID == 0;
-////endproperty
-////ASSERT_LOW_RESET_P: assert property(low_reset_p)begin
-////           `uvm_info("*** ASSERTION PASSED *** Low Reset and Awvalid,Wvalid & Arvalid low","",UVM_HIGH)
-////         end
-////          else
-////           `uvm_info("*** ASSERTION FAILED *** Low Reset and Awvalid,Wvalid & Arvalid low","",UVM_HIGH)
-////
-////---------------------------------------------------------------------------//
-//// Awvalid duration High and same duration AWID and AWLEN High               //
-////---------------------------------------------------------------------------//
+//---------------------------------------------------------------------------//
+// Awvalid duration High and same duration AWID and AWLEN High               //
+//---------------------------------------------------------------------------//
 //property valid_info_p;
 //  @(posedge clk) AWVALID |-> $stable(AWID) && $stable(AWLEN); 
 //endproperty
@@ -204,6 +204,6 @@ endclocking
 //         end
 //           else
 //           `uvm_info("*** ASSERTION FAILED*** High Awvalid and Awid and Awlen stable","",UVM_HIGH)
-//
+
 
 endinterface
