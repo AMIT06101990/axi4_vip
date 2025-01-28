@@ -82,7 +82,7 @@ endclocking
 
 //Clocking block for Monitor Block
 clocking mon_cb@(posedge clk);
-  default input #0 output #0;
+  default input #1 output #1;
   input AWID, AWADDR, AWLEN, AWSIZE, AWBURST,  AWLOCK, AWCACHE, AWPROT, AWVALID;
   input  AWREADY;
 
