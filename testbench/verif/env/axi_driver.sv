@@ -29,6 +29,7 @@ function new(string name = "axi_driver", uvm_component parent = null);
 endfunction
 
 // Get Interface handle using Configdb/resourcedb in build_phase
+// biuld phase is top-down or down- up? : top-down.
 function void build_phase(uvm_phase phase);
   super.build_phase(phase);
   tx = axi_tx :: type_id :: create("tx");
@@ -38,6 +39,16 @@ function void build_phase(uvm_phase phase);
   //  `uvm_fatal(get_type_name(), "Interface Handle not get from config_db")
 endfunction
 
+//Print Heirchchy of each connected component
+function void end_of_elaboration_phase(uvm_phase phase);
+  uvm_top.print_topology();//print heirchchy component (integration)
+endfunction
+//end of elab what is usecase of this? 
+//start of sim phase 
+//connect phase
+//
+//why noy write super.run();
+//what is meaning of super. method? 
 task run_phase(uvm_phase phase);
   forever begin 
     // Driver and Sequencer Handshaking 
@@ -78,15 +89,15 @@ endtask
 task drive(axi_tx req);
   `uvm_info("Driver", "task_driver", UVM_MEDIUM)
 fork
-  if(req.wr_rd == 1)begin
+ // if(req.wr_rd == 1)begin //either it can be do write or read only: AXI is suggesting like this?
      write_address_phase(req);
      write_data_phase(req);
      write_response_phase(req);
-  end
-  else begin
+ // end
+ // else begin
     read_address_phase(req);
     read_data_phase(req);
-  end
+ // end
 join
 endtask
 
@@ -119,9 +130,9 @@ task write_address_phase(axi_tx tx);
   `uvm_info("Driver_tx", "Write_address_phase", UVM_MEDIUM)
   @(vif.drv_cb);
   vif.drv_cb.AWVALID <= 1'b1;
-  vif.drv_cb.AWADDR <= tx.addr;
-  vif.drv_cb.AWLEN <= tx.burst_len;
-  vif.drv_cb.AWSIZE <= tx.burst_size;
+  vif.drv_cb.AWADDR <= tx.awaddr;
+  vif.drv_cb.AWLEN <= tx.awlen;
+  vif.drv_cb.AWSIZE <= tx.awsize;
   vif.drv_cb.AWBURST <= tx.burst_type;
   vif.drv_cb.AWID <= tx.awid;
 //  wait(vif.drv_cb.AWREADY == 1)
@@ -137,21 +148,22 @@ task write_address_phase(axi_tx tx);
   vif.drv_cb.AWSIZE <= 1'b0; 
   vif.drv_cb.AWBURST <= 1'b0;
   vif.drv_cb.AWID<= 1'b0;
-  `uvm_info("Driver_tx",$sformatf("\n awaddr=%h,\n burst_len=%h,\n burst_type=%h,\n burst_size=%h,\n Awid=%0d",vif.AWADDR, vif.AWLEN, vif.AWBURST, vif.AWSIZE, vif.AWID), UVM_MEDIUM)
+  `uvm_info("Driver_tx",$sformatf("\n awaddr=%h,\n Awlen=%h,\n burst_type=%h,\n Awsize=%h,\n Awid=%0d",vif.AWADDR, vif.AWLEN, vif.AWBURST, vif.AWSIZE, vif.AWID), UVM_MEDIUM)
 endtask : write_address_phase
 
 //--------------------------------------------------------------------------------//
 //TASK: Write  data Phase for data transfer in AXI bus for write operation        //
 //--------------------------------------------------------------------------------//
 task write_data_phase(axi_tx tx);
-  tx.print();
-  for(int i=0; i <= tx.burst_len; i++)begin
+  //tx.print();
+ `uvm_info("Driver_Write_data_transaction", tx.sprint(), UVM_HIGH)
+  for(int i=0; i <= tx.awlen; i++)begin
      @(vif.drv_cb);
-     vif.drv_cb.WDATA <= tx.dataQ.pop_front();
+     vif.drv_cb.WDATA <= tx.wdataQ.pop_front();
      vif.drv_cb.WSTRB <= 4'hf;
      vif.drv_cb.WID <= tx.wid;
      vif.drv_cb.WVALID <= 1'b1;
-     if(i == tx.burst_len) begin
+     if(i == tx.awlen) begin
        vif.drv_cb.WLAST <= 1;
      end
     //wait(vif.drv_cb.WREADY==1); // Task : Wait for certain time step of WREADY
@@ -193,9 +205,9 @@ task read_address_phase(axi_tx tx);
   `uvm_info("Driver_tx", "read_address_phase", UVM_MEDIUM)
   @(vif.drv_cb);
   vif.drv_cb.ARVALID <= 1'b1;
-  vif.drv_cb.ARADDR <= tx.addr;
-  vif.drv_cb.ARLEN <= tx.burst_len;
-  vif.drv_cb.ARSIZE <= tx.burst_size;
+  vif.drv_cb.ARADDR <= tx.araddr;
+  vif.drv_cb.ARLEN <= tx.arlen;
+  vif.drv_cb.ARSIZE <= tx.arsize;
   vif.drv_cb.ARBURST <= tx.burst_type;
   vif.drv_cb.ARID<= tx.arid;
    Ready_wait(vif.drv_cb.ARREADY, 100); // Task : Wait for certain time step of ARREADY
@@ -211,15 +223,16 @@ task read_address_phase(axi_tx tx);
   vif.drv_cb.ARBURST <= 0;
   vif.drv_cb.ARID <= 0;
   `uvm_info("Driver_Read_addr_tx", $sformatf("\n ARVALID=%0d, ARREADY=%0d",vif.ARVALID, vif.ARREADY), UVM_MEDIUM)
-  `uvm_info("Driver_tx",$sformatf("\n araddr=%h,\n burst_len=%h,\n burst_type=%h,\n burst_size=%h,\n Arid=%0d", vif.ARADDR, vif.ARLEN, vif.ARBURST, vif.ARSIZE, vif.ARID), UVM_MEDIUM)
+  `uvm_info("Driver_tx",$sformatf("\n araddr=%h,\n Arlen=%h,\n burst_type=%h,\n Arsize=%h,\n Arid=%0d", vif.ARADDR, vif.ARLEN, vif.ARBURST, vif.ARSIZE, vif.ARID), UVM_MEDIUM)
 endtask : read_address_phase
 
 //--------------------------------------------------------------------------------//
 //TASK: Read data Phase for data transfer from Slave(DUT) in Read operation       //
 //--------------------------------------------------------------------------------//
 task read_data_phase(axi_tx tx);
-  `uvm_info("Driver_tx", "read_data_phase", UVM_MEDIUM)
-   for(int i=0; i <= tx.burst_len; i++)begin
+ `uvm_info("Driver_Read_data_transaction", tx.sprint(), UVM_HIGH)
+ `uvm_info("Driver_tx", "read_data_phase", UVM_MEDIUM)
+   for(int i=0; i <= tx.arlen; i++)begin
        vif.drv_cb.RREADY <=  1'b1;
       while (vif.drv_cb.RVALID == 0)begin
         @(posedge vif.clk);
@@ -234,4 +247,4 @@ endtask : read_data_phase
 
 endclass : axi_driver 
 
-
+# Errors: 0, Warnings: 4
