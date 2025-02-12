@@ -89,15 +89,15 @@ endtask
 task drive(axi_tx req);
   `uvm_info("Driver", "task_driver", UVM_MEDIUM)
 fork
- // if(req.wr_rd == 1)begin //either it can be do write or read only: AXI is suggesting like this?
+ if(req.wr_rd == 1)begin //either it can be do write or read only: AXI is suggesting like this?
      write_address_phase(req);
      write_data_phase(req);
      write_response_phase(req);
- // end
- // else begin
-    read_address_phase(req);
-    read_data_phase(req);
- // end
+  end
+  else begin
+  read_address_phase(req);
+  read_data_phase(req);
+  end
 join
 endtask
 
@@ -203,7 +203,7 @@ endtask : write_response_phase
 //--------------------------------------------------------------------------------//
 task read_address_phase(axi_tx tx);
   `uvm_info("Driver_tx", "read_address_phase", UVM_MEDIUM)
-  @(vif.drv_cb);
+  //@(vif.drv_cb);
   vif.drv_cb.ARVALID <= 1'b1;
   vif.drv_cb.ARADDR <= tx.araddr;
   vif.drv_cb.ARLEN <= tx.arlen;
@@ -231,20 +231,23 @@ endtask : read_address_phase
 //--------------------------------------------------------------------------------//
 task read_data_phase(axi_tx tx);
  `uvm_info("Driver_Read_data_transaction", tx.sprint(), UVM_HIGH)
- `uvm_info("Driver_tx", "read_data_phase", UVM_MEDIUM)
    for(int i=0; i <= tx.arlen; i++)begin
        vif.drv_cb.RREADY <=  1'b1;
       while (vif.drv_cb.RVALID == 0)begin
         @(posedge vif.clk);
       end
+      if (vif.drv_cb.RLAST) begin
+        `uvm_info("Driver_tx", "RLAST detected, completing read transaction", UVM_MEDIUM)
+        @(posedge vif.clk);
+        vif.drv_cb.RREADY <= 1'b0;
+        break;
+      end
+   //  vif.drv_cb.RREADY <=  1'b1;
        @(posedge vif.clk);
        vif.drv_cb.RREADY <=  1'b0;
-   end
-       vif.RLAST <=  1'b0;
+    end
        
-  `uvm_info("Driver_tx",$sformatf("RVALID=%0d, RREADY=%0d",vif.RVALID,vif.RREADY), UVM_MEDIUM)
+  `uvm_info("Driver_tx",$sformatf("RVALID=%0d, RREADY=%0d, RLAST=%0d",vif.RVALID,vif.drv_cb.RREADY, vif.RLAST), UVM_MEDIUM)
 endtask : read_data_phase
 
 endclass : axi_driver 
-
-# Errors: 0, Warnings: 4
