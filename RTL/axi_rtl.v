@@ -298,11 +298,21 @@ always @* begin
                 mem_rd_en = 1'b1;
                 s_axi_rvalid_next = 1'b1;
                 s_axi_rid_next = read_id_reg;
-                s_axi_rlast_next = read_count_reg == 0;
+              //  s_axi_rlast_next = (read_count_next == 0) ? 1'b1 : 1'b0;//changed 
+                s_axi_rlast_next = (read_count_reg == 1);//Changed 
                 if (read_burst_reg != 2'b00) begin
                     read_addr_next = read_addr_reg + (1 << read_size_reg);
                 end
                 read_count_next = read_count_reg - 1;
+                //if (read_count_reg > 0) begin//Changed 
+                //  read_count_next = read_count_reg - 1;//Changed 
+                //end  //Changed 
+                //else read_count_next = 0;//changed 
+
+                
+
+
+                
                 if (read_count_reg > 0) begin
                     read_state_next = READ_STATE_BURST;
                 end else begin
@@ -334,6 +344,12 @@ always @(posedge clock) begin
         s_axi_rdata_reg <= mem[read_addr_valid];
     end
 
+    //  for (i = 0; i < WORD_WIDTH; i = i + 1) begin
+    //      if (mem_rd_en) begin
+    //         s_axi_rdata_reg[WORD_SIZE*i +: WORD_SIZE] <= mem[read_addr_valid][WORD_SIZE*i +: WORD_SIZE];
+    //      end
+    //      $display("READ DEBUG");
+    //  end
     if (!s_axi_rvalid_pipe_reg || s_axi_rready) begin
         s_axi_rid_pipe_reg <= s_axi_rid_reg;
         s_axi_rdata_pipe_reg <= s_axi_rdata_reg;
